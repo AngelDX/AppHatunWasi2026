@@ -9,4 +9,8 @@ class Product extends Model{
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function images(){
+        return $this->morphMany(Image::class, 'imageable');
+    }
 }

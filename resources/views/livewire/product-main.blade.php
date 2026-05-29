@@ -29,6 +29,7 @@
                         </flux:badge>
                     </flux:table.cell>
                     <flux:table.cell>
+                        <flux:button wire:click="openUpload({{$item}})" icon="photo" class="cursor-pointer"></flux:button>
                         <flux:button wire:click="edit({{$item}})" variant="primary" color="amber" icon="pencil" class="cursor-pointer"></flux:button>
                         <flux:button wire:click="confirm({{$item}})" variant="primary" color="red" icon="trash" class="cursor-pointer"></flux:button>
                     </flux:table.cell>
@@ -77,4 +78,14 @@
         </div>
     </flux:modal>
 
+    <flux:modal name="showUpload" class="md:w-96">
+        <div class="space-y-6">
+            <div>
+                <flux:heading size="lg">Imágenes del producto</flux:heading>
+            </div>
+            @if($productSelectedId)
+                @livewire('image-uploader', ['model' => \App\Models\Product::find($productSelectedId)], key($productSelectedId))
+            @endif
+        </div>
+    </flux:modal>
 </div>

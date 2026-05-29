@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Product;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Flux\Flux;
@@ -12,6 +13,7 @@ class ProductMain extends Component{
     use WithPagination;
 
     public $search,$descripcion,$id;
+    public $productSelectedId = null;
 
     #[Validate('required')]
     public $nombre,$cantidad,$precio,$disponible;
@@ -69,6 +71,16 @@ class ProductMain extends Component{
     public function create(){
         $this->reset(['id','nombre','descripcion','cantidad','precio','disponible']);
         $this->modal('showform')->show();
+    }
+
+    public function openUpload(Product $item){
+        $this->productSelectedId = $item->id;
+        $this->modal('showUpload')->show();
+    }
+
+    #[On('image-uploaded')]
+    public function onImageUploaded(){
+        $this->modal('showUpload')->close();
     }
 
     public function confirm(Product $item){
